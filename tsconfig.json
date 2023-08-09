@@ -46,10 +46,10 @@
     "template/**/*.d.ts",
     "template/**/*.tsx",
     "template/**/*.vue",
-    "service/**/*.ts",
-    "service/**/*.d.ts",
-    "service/**/*.tsx",
-    "service/**/*.vue",
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
     "types/**/*.d.ts",
     "types/**/*.ts",
     "build/**/*.ts",
@@ -57,7 +57,7 @@
     "mock/**/*.ts",
     "components.d.ts",
     "vite.config.ts"
-  ],
+, "src/router/index.js"  ],
   "exclude": [
     "node_modules",
     "dist",

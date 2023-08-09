@@ -1,0 +1,24 @@
+{
+  "name": "flowt_micro_Test",
+  "title": "测试页面",
+  "baseUrl": "test",
+  "group": "开发者",
+  "iconName": "PersonTag24Regular",
+
+  "children": [
+    {
+      "path": "about",
+      "meta": {
+        "title": "角色管理",
+        "iconName": "PersonTag24Regular"
+      }
+    },
+    {
+      "path": "home",
+      "meta": {
+        "title": "权限管理",
+        "iconName": "KeyMultiple20Regular"
+      }
+    }
+  ]
+}
