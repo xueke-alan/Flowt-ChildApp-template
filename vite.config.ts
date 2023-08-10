@@ -1,12 +1,13 @@
+import path from "path";
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import qiankun from "vite-plugin-qiankun";
 const useDevMode = true; // useDevMode = true 时不开启热更新
-import path from "path";
+import { baseUrl } from "./public/qiankun.config.json";
 
 export default defineConfig({
-  base: "/test",
-  plugins: [vue(), qiankun("test", { useDevMode })],
+  base: `/${baseUrl}`,
+  plugins: [vue(), qiankun(baseUrl, { useDevMode })],
   resolve: {
     alias: {
       "~": path.resolve(__dirname, "./template"),

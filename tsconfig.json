@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
+    "target": "es5",
+    "module": "commonjs",
     "moduleResolution": "node",
     "strict": true,
     "forceConsistentCasingInFileNames": true,
@@ -57,7 +57,7 @@
     "mock/**/*.ts",
     "components.d.ts",
     "vite.config.ts"
-, "src/router/index.js"  ],
+, "src/router/index.ts"  ],
   "exclude": [
     "node_modules",
     "dist",

@@ -1,10 +1,7 @@
 // import { createApp } from "vue";
 import App from "./App.vue";
-import router from "@/router/index"; // 导入路由配置
+import { router } from "@/router/index"; // 导入路由配置
 
-// const app = createApp(App);
-// app.use(router); // 使用路由配置
-// app.mount("#app");
 
 import { createApp } from "vue";
 // import mitt from 'mitt';
@@ -27,7 +24,7 @@ renderWithQiankun({
     console.log(props);
     render(props);
     // store.commit("updateUserInfo",props);
-    // // 在vue全局注册主应用的状态监听和状态改变事件
+    // TODO 在vue全局注册主应用的状态监听和状态改变事件
     // app.config.globalProperties.$onGlobalStateChange = props.onGlobalStateChange;
     // app.config.globalProperties.$setGlobalState = props.setGlobalState;
   },
