@@ -1,8 +1,8 @@
 import { baseUrl } from "../../public/qiankun.config.json";
 import { createRouter, createWebHistory } from "vue-router";
-import user from "../views/user.vue";
-import role from "../views/role.vue";
-import permission from "../views/permission.vue";
+import user from "@/views/user/user.vue";
+import role from "@/views/role/role.vue";
+import permission from "@/views/permission/permission.vue";
 
 const routes = [
   {
