@@ -1,15 +1,16 @@
 <template>
   <div>
     <n-card>
-      <n-data-table :columns="columns" :data="data" :pagination="pagination" />
+      <n-data-table striped :columns="columns" :data="data" :pagination="pagination" />
     </n-card>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { NCard, NDataTable } from 'naive-ui'
-import { reactive, ref } from 'vue';
-
+import { onMounted, reactive, ref } from 'vue';
+import { h } from 'vue'
+import actionRender from "./components/table/actionRender.vue";
 
 const paginationReactive = reactive({
   page: 2,
@@ -26,6 +27,8 @@ const paginationReactive = reactive({
 })
 
 const pagination = paginationReactive
+
+
 
 const createColumns = () => {
   return [
@@ -51,7 +54,10 @@ const createColumns = () => {
     },
     {
       title: 'Action',
-      key: 'actions'
+      key: 'actions',
+      render(row: any) {
+        return h(actionRender, { row })
+      }
     }
   ]
 }
@@ -62,254 +68,15 @@ const data = ref([
     name: 'Alan xue',
     nameCn: '薛科',
     avatar: 32,
-    group: 'New York No. 1 Lake Park',
-    role: ['nice', 'developer']
+    group: 'PH',
+    role: ['Developer']
   },
-  {
-    key: 1,
-    staffId: 'GZ10548',
-    name: 'Alan xue',
-    nameCn: '薛科',
-    avatar: 32,
-    group: 'New York No. 1 Lake Park',
-    role: ['nice', 'developer']
-  },
-  {
-    key: 1,
-    staffId: 'GZ10548',
-    name: 'Alan xue',
-    nameCn: '薛科',
-    avatar: 32,
-    group: 'New York No. 1 Lake Park',
-    role: ['nice', 'developer']
-  },
-  {
-    key: 1,
-    staffId: 'GZ10548',
-    name: 'Alan xue',
-    nameCn: '薛科',
-    avatar: 32,
-    group: 'New York No. 1 Lake Park',
-    role: ['nice', 'developer']
-  },
-  {
-    key: 1,
-    staffId: 'GZ10548',
-    name: 'Alan xue',
-    nameCn: '薛科',
-    avatar: 32,
-    group: 'New York No. 1 Lake Park',
-    role: ['nice', 'developer']
-  },
-  {
-    key: 1,
-    staffId: 'GZ10548',
-    name: 'Alan xue',
-    nameCn: '薛科',
-    avatar: 32,
-    group: 'New York No. 1 Lake Park',
-    role: ['nice', 'developer']
-  },
-  {
-    key: 1,
-    staffId: 'GZ10548',
-    name: 'Alan xue',
-    nameCn: '薛科',
-    avatar: 32,
-    group: 'New York No. 1 Lake Park',
-    role: ['nice', 'developer']
-  },
-  {
-    key: 1,
-    staffId: 'GZ10548',
-    name: 'Alan xue',
-    nameCn: '薛科',
-    avatar: 32,
-    group: 'New York No. 1 Lake Park',
-    role: ['nice', 'developer']
-  },
-  {
-    key: 1,
-    staffId: 'GZ10548',
-    name: 'Alan xue',
-    nameCn: '薛科',
-    avatar: 32,
-    group: 'New York No. 1 Lake Park',
-    role: ['nice', 'developer']
-  },
-  {
-    key: 1,
-    staffId: 'GZ10548',
-    name: 'Alan xue',
-    nameCn: '薛科',
-    avatar: 32,
-    group: 'New York No. 1 Lake Park',
-    role: ['nice', 'developer']
-  },
-  {
-    key: 1,
-    staffId: 'GZ10548',
-    name: 'Alan xue',
-    nameCn: '薛科',
-    avatar: 32,
-    group: 'New York No. 1 Lake Park',
-    role: ['nice', 'developer']
-  },
-  {
-    key: 1,
-    staffId: 'GZ10548',
-    name: 'Alan xue',
-    nameCn: '薛科',
-    avatar: 32,
-    group: 'New York No. 1 Lake Park',
-    role: ['nice', 'developer']
-  },
-  {
-    key: 1,
-    staffId: 'GZ10548',
-    name: 'Alan xue',
-    nameCn: '薛科',
-    avatar: 32,
-    group: 'New York No. 1 Lake Park',
-    role: ['nice', 'developer']
-  },
-  {
-    key: 1,
-    staffId: 'GZ10548',
-    name: 'Alan xue',
-    nameCn: '薛科',
-    avatar: 32,
-    group: 'New York No. 1 Lake Park',
-    role: ['nice', 'developer']
-  },
-  {
-    key: 1,
-    staffId: 'GZ10548',
-    name: 'Alan xue',
-    nameCn: '薛科',
-    avatar: 32,
-    group: 'New York No. 1 Lake Park',
-    role: ['nice', 'developer']
-  },
-  {
-    key: 1,
-    staffId: 'GZ10548',
-    name: 'Alan xue',
-    nameCn: '薛科',
-    avatar: 32,
-    group: 'New York No. 1 Lake Park',
-    role: ['nice', 'developer']
-  },
-  {
-    key: 1,
-    staffId: 'GZ10548',
-    name: 'Alan xue',
-    nameCn: '薛科',
-    avatar: 32,
-    group: 'New York No. 1 Lake Park',
-    role: ['nice', 'developer']
-  },
-  {
-    key: 1,
-    staffId: 'GZ10548',
-    name: 'Alan xue',
-    nameCn: '薛科',
-    avatar: 32,
-    group: 'New York No. 1 Lake Park',
-    role: ['nice', 'developer']
-  },
-  {
-    key: 1,
-    staffId: 'GZ10548',
-    name: 'Alan xue',
-    nameCn: '薛科',
-    avatar: 32,
-    group: 'New York No. 1 Lake Park',
-    role: ['nice', 'developer']
-  },
-  {
-    key: 1,
-    staffId: 'GZ10548',
-    name: 'Alan xue',
-    nameCn: '薛科',
-    avatar: 32,
-    group: 'New York No. 1 Lake Park',
-    role: ['nice', 'developer']
-  },
-  {
-    key: 1,
-    staffId: 'GZ10548',
-    name: 'Alan xue',
-    nameCn: '薛科',
-    avatar: 32,
-    group: 'New York No. 1 Lake Park',
-    role: ['nice', 'developer']
-  },
-  {
-    key: 1,
-    staffId: 'GZ10548',
-    name: 'Alan xue',
-    nameCn: '薛科',
-    avatar: 32,
-    group: 'New York No. 1 Lake Park',
-    role: ['nice', 'developer']
-  },
-  {
-    key: 1,
-    staffId: 'GZ10548',
-    name: 'Alan xue',
-    nameCn: '薛科',
-    avatar: 32,
-    group: 'New York No. 1 Lake Park',
-    role: ['nice', 'developer']
-  },
-  {
-    key: 1,
-    staffId: 'GZ10548',
-    name: 'Alan xue',
-    nameCn: '薛科',
-    avatar: 32,
-    group: 'New York No. 1 Lake Park',
-    role: ['nice', 'developer']
-  },
-  {
-    key: 1,
-    staffId: 'GZ10548',
-    name: 'Alan xue',
-    nameCn: '薛科',
-    avatar: 32,
-    group: 'New York No. 1 Lake Park',
-    role: ['nice', 'developer']
-  },
-  {
-    key: 1,
-    staffId: 'GZ10548',
-    name: 'Alan xue',
-    nameCn: '薛科',
-    avatar: 32,
-    group: 'New York No. 1 Lake Park',
-    role: ['nice', 'developer']
-  },
-  {
-    key: 1,
-    staffId: 'GZ10548',
-    name: 'Alan xue',
-    nameCn: '薛科',
-    avatar: 32,
-    group: 'New York No. 1 Lake Park',
-    role: ['nice', 'developer']
-  },
-  {
-    key: 1,
-    staffId: 'GZ10548',
-    name: 'Alan xue',
-    nameCn: '薛科',
-    avatar: 32,
-    group: 'New York No. 1 Lake Park',
-    role: ['nice', 'developer']
-  },
-
 ])
+
+onMounted(() => {
+  // 根据页码拿到全部的user数据
+})
+
 const columns = createColumns()
 </script>
 
