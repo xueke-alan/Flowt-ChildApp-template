@@ -1,0 +1,19 @@
+// 传入基座应用的store，为这个store添加一个订阅，有修改时，就更新子应用的state
+
+import { useGlobalSetting } from "~/stores/global";
+const globalStore = useGlobalSetting();
+
+export function useQiankunGlobalState({ designStore } /* 解构出每一个store */) {
+  // 从基座应用初始化一些参数
+  globalStore.darkTheme = designStore.darkTheme;
+
+  // 订阅designStore以切换主题
+  const unsubscribeDesignStore = designStore.$subscribe(
+    (newState, oldState) => {
+      // TODO 这种颜色切换模式导致性能开销很大
+      globalStore.darkTheme = oldState.darkTheme;
+    }
+  );
+
+  return { unsubscribeDesignStore };
+}
