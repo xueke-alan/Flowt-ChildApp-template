@@ -34,4 +34,3 @@ const getThemeOverrides = computed(() => {
 });
 
 </script>
-~/stores/global

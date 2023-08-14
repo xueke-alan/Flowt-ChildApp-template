@@ -12,12 +12,16 @@ import { RouterLink, useRouter } from 'vue-router';
 const router = useRouter().getRoutes()
 
 
+
+
 const menuOptions: MenuOption[] = router.map(({ name, path }) => {
   return {
     label: () => h(RouterLink, { to: { name } }, { default: () => path }),
     key: name as string,
   }
 })
+
+console.log(menuOptions);
 
 const activeKey = ref(null)
 

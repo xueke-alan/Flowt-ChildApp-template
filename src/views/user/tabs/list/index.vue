@@ -33,8 +33,8 @@
     </div>
   </div>
 
-  <n-data-table striped :columns="(columns as TableColumns<any>)" :data="[...data]" size="small" flex-height
-    :single-line="false" :row-props="rowProps" :loading="!data.length" style="flex:1" />
+  <n-data-table  striped :columns="(columns as TableColumns<any>)" :data="[...data]" size="small"
+    flex-height :single-line="false" :row-props="rowProps" :loading="!data.length" style="flex:1" />
 </template>
 
 <script lang="ts" setup>
@@ -66,11 +66,16 @@ const globalStore = useGlobalSetting();
 
 console.log(globalStore.darkTheme);
 
+const tableShow = ref(true)
 
 watch(
-  globalStore.getDarkTheme,
+  () => globalStore.getDarkTheme,
   () => {
     console.log('变了');
+    tableShow.value = false
+    setTimeout(() => {
+      tableShow.value = true
+    }, 200);
   }
 )
 
