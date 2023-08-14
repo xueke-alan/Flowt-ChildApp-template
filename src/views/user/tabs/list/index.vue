@@ -19,7 +19,8 @@
     </n-button-group>
 
     <div style="display: flex;">
-      <n-input v-model:value="value" size="small" type="text" placeholder="工号/姓名/分机/分组" style="margin-right: 10px;width: 250px;" />
+      <n-input v-model:value="value" size="small" type="text" placeholder="工号/姓名/分机/分组"
+        style="margin-right: 10px;width: 250px;" />
 
       <n-button ghost size="small" style="margin-right: 10px;"> 刷新 </n-button>
 
@@ -32,14 +33,14 @@
     </div>
   </div>
 
-  <n-data-table striped :columns="(columns as TableColumns<any>)" :data="data" size="small" flex-height
-    :single-line="false" :row-props="rowProps" :loading="!data.length" style="height: 100%;" />
+  <n-data-table striped :columns="(columns as TableColumns<any>)" :data="[...data]" size="small" flex-height
+    :single-line="false" :row-props="rowProps" :loading="!data.length" style="flex:1" />
 </template>
 
 <script lang="ts" setup>
 
 import { NDataTable, NButtonGroup, NButton, NInput } from 'naive-ui'
-import { onMounted, reactive, ref } from 'vue';
+import { onMounted, reactive, ref, watch } from 'vue';
 
 import { getUserAll } from "@/api/user";
 import { TableColumns } from 'naive-ui/es/data-table/src/interface';
@@ -57,12 +58,27 @@ const paginationReactive = reactive({
   }
 })
 
+
+
+// 监听主题变化，卸载大Dom数量组件
+import { useGlobalSetting } from "~/stores/global";
+const globalStore = useGlobalSetting();
+
+console.log(globalStore.darkTheme);
+
+
+watch(
+  globalStore.getDarkTheme,
+  () => {
+    console.log('变了');
+  }
+)
+
 const rowProps = (row: any) => {
   return {
     style: 'cursor: pointer;',
     onClick: () => {
       console.log(row);
-
     }
   }
 }

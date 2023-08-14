@@ -32,6 +32,8 @@ renderWithQiankun({
     console.log(props);
     render(props);
 
+    props.message()
+
     // 将传入的state存入自己的store
     const { unsubscribeDesignStore } = useQiankunGlobalState(
       props.globalStateList
@@ -39,7 +41,7 @@ renderWithQiankun({
     unsubscribList.push(unsubscribeDesignStore);
   },
   bootstrap() {
-    console.log("bootstrap");
+    console.log("bootstrap"); 
   },
   unmount() {
     console.log("unmount");
