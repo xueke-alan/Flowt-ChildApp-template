@@ -61,12 +61,15 @@ console.log(tabsConfigtemp);
   height: 100%;
 
   .header {
+    // background-color: #eee;
+    // background-color: #aaaaaa30;
+    // box-shadow: 5px 5px 20px 20px #aaaaaa30;
 
     .tabs {
       margin-bottom: 10px;
 
       .tab {
-        font-size: 16px;
+        font-size: 14px;
         display: flex;
         align-items: center;
 
