@@ -63,7 +63,7 @@ const paginationReactive = reactive({
 // 监听主题变化，卸载大Dom数量组件
 import { useGlobalSetting } from "~/stores/global";
 const globalStore = useGlobalSetting();
-
+ 
 console.log(globalStore.darkTheme);
 
 const tableShow = ref(true)

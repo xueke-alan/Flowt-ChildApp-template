@@ -23,6 +23,7 @@ const routes = [
     path: "/user",
     name: "user",
     component: renderModel,
+    redirect: "/user/list",
     props: {
       path: `/${baseUrl}/user`,
       model: cardTabs,
@@ -74,6 +75,9 @@ const routes = [
 
 routes.forEach((r) => {
   r.path = `/${baseUrl}${r.path}`;
+  if (r.redirect) {
+    r.redirect = `/${baseUrl}${r.redirect}`;
+  }
 });
 
 export const router = createRouter({

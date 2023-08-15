@@ -40,7 +40,7 @@ const props = defineProps({
   }
 });
 
-console.log(props.config.path);
+console.log(props.config);
 
 
 const router = useRouter();
@@ -48,6 +48,9 @@ const router = useRouter();
 const tabsConfigtemp = router.getRoutes().filter(({ path }) => {
   return path == props.config.path
 })[0]
+
+console.log(tabsConfigtemp);
+
 
 
 </script>
