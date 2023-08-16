@@ -2,7 +2,7 @@
   "name": "flowt_micro_account",
   "title": "组织结构",
   "baseUrl": "account",
-  "iconName": "PersonTag24Regular",
+  "iconName": "PeopleCommunity24Regular",
   "children": [
     {
       "path": "user",
