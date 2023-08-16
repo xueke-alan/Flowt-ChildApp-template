@@ -7,6 +7,9 @@ export const useGlobalSettingStore = defineStore({
   id: "child-global-setting",
   state: (): any => ({
     darkTheme: false,
+    loading: false,
+    designStore: null,
+    qiankunBusStore: null,
   }),
   getters: {
     getDarkTheme(): boolean {

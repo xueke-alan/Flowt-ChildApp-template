@@ -14,6 +14,8 @@ const store = useGlobalSettingStore()
 import { lighten } from '~/utils/index';
 
 
+
+
 const theme = computed(() => store.darkTheme ? darkTheme : null);
 
 const appTheme = "#FF6600"

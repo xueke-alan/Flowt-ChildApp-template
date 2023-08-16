@@ -14,6 +14,9 @@
         实习生
       </n-button>
       <n-button size="small">
+        准入职
+      </n-button>
+      <n-button size="small">
         已离职
       </n-button>
     </n-button-group>
@@ -33,8 +36,9 @@
     </div>
   </div>
 
-  <n-data-table  striped :columns="(columns as TableColumns<any>)" :data="[...data]" size="small"
-    flex-height :single-line="false" :row-props="rowProps" :loading="!data.length" style="flex:1" />
+  <n-data-table class="datatable" :class="{ tablehide: !tableShow }" ref="dataTable" striped
+    :columns="(columns as TableColumns<any>)" :data="[...data]" size="small" :single-line="false" flex-height
+    :row-props="rowProps" :loading="!data.length" style="height:100%;" />
 </template>
 
 <script lang="ts" setup>
@@ -63,11 +67,12 @@ const paginationReactive = reactive({
 // 监听主题变化，卸载大Dom数量组件
 import { useGlobalSetting } from "~/stores/global";
 const globalStore = useGlobalSetting();
- 
+
 console.log(globalStore.darkTheme);
 
 const tableShow = ref(true)
 
+// TODO 还要监听侧边栏收起 需要拿数据
 watch(
   () => globalStore.getDarkTheme,
   () => {
@@ -75,7 +80,7 @@ watch(
     tableShow.value = false
     setTimeout(() => {
       tableShow.value = true
-    }, 200);
+    }, 300);
   }
 )
 
@@ -156,10 +161,21 @@ const value = ref("");
 
 onMounted(async () => {
   // 根据页码拿到全部的user数据
-  const { users } = await getUserAll({ page: 1, pagesize: 200 })
+  const { users } = await getUserAll({ page: 1, pagesize: 50 })
   console.log(users);
   data.value = users
 })
 </script>
 
-<style scoped></style>
+<style scoped lang="less">
+.datatable {
+  opacity: 1;
+  transition: all 1s ease;
+
+  &.tablehide {
+    opacity: 0;
+    display: none;
+
+  }
+}
+</style>
