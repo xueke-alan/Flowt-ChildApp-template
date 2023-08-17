@@ -16,7 +16,6 @@ export function useQiankunGlobalState(
   // 订阅designStore以切换主题
   const unsubscribeDesignStore = designStore.$subscribe(
     (newState, oldState) => {
-      // TODO 这种颜色切换模式导致性能开销很大
       globalStore.darkTheme = oldState.darkTheme;
     }
   );

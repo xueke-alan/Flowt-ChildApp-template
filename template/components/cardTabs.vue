@@ -1,9 +1,9 @@
 <template >
-  <n-card class="card" style="" content-style="display: flex;flex-direction: column;padding-top: 10px;">
-
+  <n-card class="card" content-style="display: flex;flex-direction: column;padding-top: 10px;overflow: hidden;"
+    :key="matchedRouter.name">
     <div class="header">
       <n-tabs class="tabs" type="line" @update:value="(name) => { router.push({ name }) }">
-        <n-tab :name="(t.name as string)" v-for="t in tabsConfigtemp.children">
+        <n-tab :name="(t.name as string)" v-for="t in matchedRouter.children">
           <div class="tab">
             <n-icon size="20" class="icon">
               <component :is="t.meta?.icon" />
@@ -12,45 +12,24 @@
           </div>
         </n-tab>
       </n-tabs>
-
       <div class="right">
-        <span class="subtitle">{{ tabsConfigtemp.meta.subtitle }}</span>
+        <span class="subtitle">{{ matchedRouter.meta.subtitle }}</span>
         <n-icon size="24" class="icon">
           <component :is="PersonFeedback24Regular" />
         </n-icon>
       </div>
     </div>
-
     <router-view></router-view>
-
   </n-card>
 </template>
 
 <script lang="ts" setup>
 import { PersonFeedback24Regular } from '@vicons/fluent';
 import { NCard, NTabs, NTab, NIcon } from 'naive-ui'
+import { computed } from 'vue';
 import { useRouter } from 'vue-router';
-
-import { defineProps } from 'vue';
-
-const props = defineProps({
-  config: {
-    type: Object,
-    required: true
-  }
-});
-
-console.log(props.config);
-
-
 const router = useRouter();
-
-const tabsConfigtemp = router.getRoutes().filter(({ path }) => {
-  return path == props.config.path
-})[0]
-
-console.log(tabsConfigtemp);
-
+const matchedRouter = computed(() => router.currentRoute.value.matched[0])
 
 
 </script>
@@ -61,10 +40,6 @@ console.log(tabsConfigtemp);
   height: 100%;
 
   .header {
-    // background-color: #eee;
-    // background-color: #aaaaaa30;
-    // box-shadow: 5px 5px 20px 20px #aaaaaa30;
-
     .tabs {
       margin-bottom: 10px;
 

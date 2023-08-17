@@ -3,7 +3,7 @@
 
     <headerLine v-if="isLocal" />
 
-    <div style="width:100%; flex:1">
+    <div style="width:100%; height: 100%;">
       <router-view />
     </div>
   </div>
@@ -42,8 +42,8 @@ onMounted(() => {
 <style  scope>
 .main-layout {
   height: 100%;
-  display: flex;
+  /* display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: center; */
 }
 </style>

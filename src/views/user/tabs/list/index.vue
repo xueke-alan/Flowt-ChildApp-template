@@ -2,9 +2,6 @@
   <div style="display: flex;justify-content: space-between;margin-bottom: 8px;">
     <n-button-group>
       <n-button ghost size="small">
-        全部
-      </n-button>
-      <n-button ghost size="small">
         正式员工
       </n-button>
       <n-button ghost size="small">
@@ -24,8 +21,9 @@
     <div style="display: flex;">
       <n-input v-model:value="value" size="small" type="text" placeholder="工号/姓名/分机/分组"
         style="margin-right: 10px;width: 250px;" />
-
-      <n-button ghost size="small" style="margin-right: 10px;"> 刷新 </n-button>
+      <n-button ghost size="small" style="margin-right: 10px;" @click="getUserList">
+        刷新
+      </n-button>
 
       <n-button-group>
         <n-button ghost size="small">
@@ -35,16 +33,19 @@
       </n-button-group>
     </div>
   </div>
-
-  <n-data-table class="datatable" :class="{ tablehide: !tableShow }" ref="dataTable" striped
-    :columns="(columns as TableColumns<any>)" :data="[...data]" size="small" :single-line="false" flex-height
-    :row-props="rowProps" :loading="!data.length" style="height:100%;" />
+  <n-spin :show="tableLoading" style="height: 100%;">
+    <n-data-table ref="myTable" class="datatable" striped :columns="(columns as TableColumns<any>)" :data="[...data]"
+      size="small" :style="tableSwitchStyle" :single-line="false" :row-props="rowProps" :max-height="tableMaxHeight"
+      :min-height="data.length > 0 ? '' : tableMaxHeight">
+      <template #empty><br></template>
+    </n-data-table>
+  </n-spin>
 </template>
 
 <script lang="ts" setup>
 
-import { NDataTable, NButtonGroup, NButton, NInput } from 'naive-ui'
-import { onMounted, reactive, ref, watch } from 'vue';
+import { NDataTable, NButtonGroup, NButton, NInput, NSpin } from 'naive-ui'
+import { onMounted, reactive, ref, watch, toRef, onUnmounted } from 'vue';
 
 import { getUserAll } from "@/api/user";
 import { TableColumns } from 'naive-ui/es/data-table/src/interface';
@@ -64,6 +65,9 @@ const paginationReactive = reactive({
 
 
 
+
+
+
 // 监听主题变化，卸载大Dom数量组件
 import { useGlobalSetting } from "~/stores/global";
 const globalStore = useGlobalSetting();
@@ -71,16 +75,21 @@ const globalStore = useGlobalSetting();
 console.log(globalStore.darkTheme);
 
 const tableShow = ref(true)
+const tableLoading = ref(true)
+const tableMaxHeight = ref("0")
+const tableSwitchStyle = ref({})
 
 // TODO 还要监听侧边栏收起 需要拿数据
 watch(
   () => globalStore.getDarkTheme,
   () => {
-    console.log('变了');
-    tableShow.value = false
+    tableSwitchStyle.value = { display: 'none', opacity: 0 }
     setTimeout(() => {
-      tableShow.value = true
+      tableSwitchStyle.value = { opacity: 0 }
     }, 300);
+    setTimeout(() => {
+      tableSwitchStyle.value = { opacity: 1 }
+    }, 400);
   }
 )
 
@@ -159,23 +168,56 @@ const columns = ref<any[]>([
 const data = ref<any[]>([]);
 const value = ref("");
 
+const myTable = ref();
+
+function resetTableMaxHeight() {
+  const myTableValue = toRef(myTable, 'value'); // 使用toRef创建响应式引用
+  console.log(myTableValue);
+  const myTableEl = myTableValue.value?.$el
+  if (myTableEl) {
+    const parentHeight = myTableEl.parentElement.parentElement.parentElement.clientHeight;
+    console.log('夫元素高度:', parentHeight, [myTableEl.parentElement]);
+    const topDistance = myTableEl.parentElement.parentElement.offsetTop;
+    console.log('元素距离top距离:', topDistance);
+    console.log('表格应该的高度:', parentHeight - 20 - topDistance);
+    tableMaxHeight.value = (parentHeight - 60 - topDistance) + 'px'
+  }
+}
+async function getUserList() {
+  tableLoading.value = true
+  const { users } = await getUserAll({ page: 1, pagesize: 500 })
+  console.log(users);
+  data.value = users;
+  tableLoading.value = false
+}
+
+
 onMounted(async () => {
   // 根据页码拿到全部的user数据
-  const { users } = await getUserAll({ page: 1, pagesize: 50 })
-  console.log(users);
-  data.value = users
+  await getUserList()
+  tableLoading.value = false
+
+  resetTableMaxHeight()
+
+  window.addEventListener('resize', resetTableMaxHeight);
+
 })
+onUnmounted(() => {
+  window.removeEventListener('resize', resetTableMaxHeight);
+});
+
 </script>
 
 <style scoped lang="less">
 .datatable {
   opacity: 1;
-  transition: all 1s ease;
+  transition: height .6s var(--n-bezier), opacity 1s var(--n-bezier);
 
-  &.tablehide {
-    opacity: 0;
-    display: none;
 
-  }
+  // &.tablehide {
+  //   opacity: 0;
+  //   display: none;
+
+  // }
 }
 </style>
