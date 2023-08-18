@@ -46,7 +46,7 @@
 
 import { NDataTable, NButtonGroup, NButton, NInput, NSpin } from 'naive-ui'
 import { onMounted, reactive, ref, watch, toRef, onUnmounted } from 'vue';
-
+import { useRouter } from "vue-router";
 import { getUserAll } from "@/api/user";
 import { TableColumns } from 'naive-ui/es/data-table/src/interface';
 const paginationReactive = reactive({
@@ -65,7 +65,7 @@ const paginationReactive = reactive({
 
 
 
-
+const router = useRouter()
 
 
 // 监听主题变化，卸载大Dom数量组件
@@ -74,7 +74,6 @@ const globalStore = useGlobalSetting();
 
 console.log(globalStore.darkTheme);
 
-const tableShow = ref(true)
 const tableLoading = ref(true)
 const tableMaxHeight = ref("0")
 const tableSwitchStyle = ref({})
@@ -98,6 +97,10 @@ const rowProps = (row: any) => {
     style: 'cursor: pointer;',
     onClick: () => {
       console.log(row);
+      router.push({
+        path: 'info',
+        query: { staffId: row.staffId }
+      });
     }
   }
 }
@@ -176,17 +179,13 @@ function resetTableMaxHeight() {
   const myTableEl = myTableValue.value?.$el
   if (myTableEl) {
     const parentHeight = myTableEl.parentElement.parentElement.parentElement.clientHeight;
-    console.log('夫元素高度:', parentHeight, [myTableEl.parentElement]);
     const topDistance = myTableEl.parentElement.parentElement.offsetTop;
-    console.log('元素距离top距离:', topDistance);
-    console.log('表格应该的高度:', parentHeight - 20 - topDistance);
     tableMaxHeight.value = (parentHeight - 60 - topDistance) + 'px'
   }
 }
 async function getUserList() {
   tableLoading.value = true
   const { users } = await getUserAll({ page: 1, pagesize: 500 })
-  console.log(users);
   data.value = users;
   tableLoading.value = false
 }
@@ -196,11 +195,8 @@ onMounted(async () => {
   // 根据页码拿到全部的user数据
   await getUserList()
   tableLoading.value = false
-
   resetTableMaxHeight()
-
   window.addEventListener('resize', resetTableMaxHeight);
-
 })
 onUnmounted(() => {
   window.removeEventListener('resize', resetTableMaxHeight);

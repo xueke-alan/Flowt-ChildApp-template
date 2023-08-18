@@ -2,18 +2,18 @@
   <n-card class="card" content-style="display: flex;flex-direction: column;padding-top: 10px;overflow: hidden;"
     :key="matchedRouter.name">
     <div class="header">
-      <n-tabs class="tabs" type="line" @update:value="(name) => { router.push({ name }) }">
-        <n-tab :name="(t.name as string)" v-for="t in matchedRouter.children">
+      <n-tabs class="tabs" type="line" :value="currentRouteName" @update:value="(name) => { router.push({ name }) }">
+        <n-tab :name="(name as string)" v-for="{ name, meta } in matchedRouter.children">
           <div class="tab">
             <n-icon size="20" class="icon">
-              <component :is="t.meta?.icon" />
+              <component :is="meta?.icon" />
             </n-icon>
-            <span>{{ t.name }}</span>
+            <span>{{ name }}</span>
           </div>
         </n-tab>
       </n-tabs>
       <div class="right">
-        <span class="subtitle">{{ matchedRouter.meta.subtitle }}</span>
+        <span class="subtitle">{{ subtitle }}</span>
         <n-icon size="24" class="icon">
           <component :is="PersonFeedback24Regular" />
         </n-icon>
@@ -30,6 +30,9 @@ import { computed } from 'vue';
 import { useRouter } from 'vue-router';
 const router = useRouter();
 const matchedRouter = computed(() => router.currentRoute.value.matched[0])
+const currentRouteName = computed(() => router.currentRoute.value.name as string)
+const subtitle = computed(() => matchedRouter.value.meta.subtitle)
+console.log(router);
 
 
 </script>

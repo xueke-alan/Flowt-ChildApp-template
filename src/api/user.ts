@@ -16,3 +16,13 @@ export function getUserAll({ page, pagesize }): Promise<UserData> {
     method: "get",
   });
 }
+
+/**
+ * @description: 获取某个用户信息
+ */
+export function getUserByStaffId(staffId: string): Promise<UserData> {
+  return http.request({
+    url: `user/info/${staffId}`,
+    method: "get",
+  });
+}
