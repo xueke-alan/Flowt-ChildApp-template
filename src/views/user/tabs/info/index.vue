@@ -84,7 +84,7 @@ const queryParams = route.query;
 console.log(queryParams);
 
 onMounted(() => {
-  getUserByStaffId(queryParams.staffId || 'GZ10548' as string).then((r) => {
+  getUserByStaffId((queryParams.staffId || 'GZ10548') as string).then((r) => {
     console.log(r);
 
     userInfo.value = r

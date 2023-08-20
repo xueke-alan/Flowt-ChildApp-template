@@ -96,7 +96,6 @@ const rowProps = (row: any) => {
   return {
     style: 'cursor: pointer;',
     onClick: () => {
-      console.log(row);
       router.push({
         path: 'info',
         query: { staffId: row.staffId }
