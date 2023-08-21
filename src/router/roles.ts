@@ -21,7 +21,7 @@ const routes = [
         name: "角色权限分配",
         meta: {
           icon: AppsListDetail24Regular,
-          display: "show:lazy",
+          display: "show",
         },
       },
       {
@@ -30,7 +30,7 @@ const routes = [
         name: "用户角色分配",
         meta: {
           icon: ChartPerson24Regular,
-          display: "show:lazy",
+          display: "show",
         },
       },
       {
@@ -39,7 +39,7 @@ const routes = [
         name: "权限与权限组",
         meta: {
           icon: ChartPerson24Regular,
-          display: "show:lazy",
+          display: "show",
         },
       },
     ],
