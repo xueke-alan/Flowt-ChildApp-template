@@ -18,21 +18,30 @@ const routes = [
       {
         path: "list",
         component: () => import("@/views/role/tabs/list/index.vue"),
-        name: "用户角色分配",
+        name: "角色权限分配",
         meta: {
           icon: AppsListDetail24Regular,
           display: "show:lazy",
         },
       },
-      // {
-      //   path: "info",
-      //   component: () => import("@/views/role/tabs/roleUser.vue"),
-      //   name: "用户角色分配",
-      //   meta: {
-      //     icon: ChartPerson24Regular,
-      //     display: "show:lazy",
-      //   },
-      // },
+      {
+        path: "roleUser",
+        component: () => import("@/views/role/tabs/roleUser.vue"),
+        name: "用户角色分配",
+        meta: {
+          icon: ChartPerson24Regular,
+          display: "show:lazy",
+        },
+      },
+      {
+        path: "preandpres",
+        component: () => import("@/views/role/tabs/roleUser.vue"),
+        name: "权限与权限组",
+        meta: {
+          icon: ChartPerson24Regular,
+          display: "show:lazy",
+        },
+      },
     ],
   },
 ];

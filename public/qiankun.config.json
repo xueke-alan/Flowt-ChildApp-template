@@ -18,13 +18,6 @@
         "title": "角色管理",
         "iconName": "PersonTag24Regular"
       }
-    },
-    {
-      "path": "permission",
-      "meta": {
-        "title": "权限管理",
-        "iconName": "KeyMultiple20Regular"
-      }
     }
   ]
 }
