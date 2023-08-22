@@ -14,7 +14,7 @@
       </n-tabs>
       <div class="right">
         <span class="subtitle">{{ subtitle }}</span>
-        <n-icon size="24" class="icon">
+        <n-icon size="20" class="icon">
           <component :is="PersonFeedback24Regular" />
         </n-icon>
       </div>

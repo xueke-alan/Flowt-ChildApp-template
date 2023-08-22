@@ -1,6 +1,7 @@
 <template>
   <n-tree class="rolesTrees" block-line :data="data" :default-expanded-keys="defaultExpandedKeys" selectable
-    :checkable="false" :default-expand-all="true" :render-suffix="renderSuffix" :render-prefix="renderPrefix" />
+    :checkable="false" :default-expand-all="true" :render-suffix="renderSuffix" :render-prefix="renderPrefix"
+    :render-label="renderLabel" :cancelable="false" />
 </template>
 
 <script lang="ts" setup>
@@ -14,29 +15,42 @@ const data: TreeOption[] = [
     key: 0,
     label: "超级管理员",
     checkboxDisabled: true,
-    suffixIcon: Number2,
+    subLable: "Root账号",
+    disabled: true,
     type: 'leaf'
   },
   {
     key: 1,
     label: "管理员",
     checkboxDisabled: true,
-    type: 'leaf'
-
+    type: 'leaf',
+    subLable: "一般开发人员账号",
   },
   {
     key: 2,
     label: "总监",
     checkboxDisabled: true,
-    type: 'leaf'
-
+    type: 'leaf',
   },
   {
     key: 3,
     label: "行政",
     checkboxDisabled: true,
-    type: 'leaf'
-
+    type: 'leaf',
+    children: [
+      {
+        key: 110,
+        label: "行政主管",
+        checkboxDisabled: true,
+        type: 'leaf',
+      },
+      {
+        key: 120,
+        label: "行政员工",
+        checkboxDisabled: true,
+        type: 'leaf',
+      },
+    ]
   },
   {
     key: 4,
@@ -53,10 +67,45 @@ const data: TreeOption[] = [
 
   },
   {
+    key: 88,
+    label: "物理组",
+    checkboxDisabled: true,
+    disabled: true,
+
+    type: 'group',
+    children: [
+      {
+        key: 11,
+        label: "物理组主管",
+        checkboxDisabled: true,
+        type: 'leaf',
+      },
+      {
+        key: 12,
+        label: "物理组测试工程师",
+        checkboxDisabled: true,
+        type: 'leaf',
+      },
+      {
+        key: 12,
+        label: "物理组分单工程师",
+        checkboxDisabled: true,
+        type: 'leaf',
+      },
+      {
+        key: 12,
+        label: "物理组初审",
+        checkboxDisabled: true,
+        type: 'leaf',
+      },
+    ]
+  },
+  {
     key: 5,
-    label: "测试主管 (用户组)",
+    label: "测试主管",
     checkboxDisabled: true,
     type: 'group',
+    subLable: "组",
 
 
     children: [
@@ -118,98 +167,23 @@ const data: TreeOption[] = [
     label: "技术服务工程师",
     checkboxDisabled: true,
   },
-  {
-    key: 7,
-    label: "技术服务工程师",
-    checkboxDisabled: true,
-  },
-  {
-    key: 7,
-    label: "技术服务工程师",
-    checkboxDisabled: true,
-  },
-  {
-    key: 7,
-    label: "技术服务工程师",
-    checkboxDisabled: true,
-  },
-  {
-    key: 7,
-    label: "技术服务工程师",
-    checkboxDisabled: true,
-  },
-  {
-    key: 7,
-    label: "技术服务工程师",
-    checkboxDisabled: true,
-  },
-  {
-    key: 7,
-    label: "技术服务工程师",
-    checkboxDisabled: true,
-  },
-  {
-    key: 7,
-    label: "技术服务工程师",
-    checkboxDisabled: true,
-  },
-  {
-    key: 7,
-    label: "技术服务工程师",
-    checkboxDisabled: true,
-  },
-  {
-    key: 7,
-    label: "技术服务工程师",
-    checkboxDisabled: true,
-  },
-  {
-    key: 7,
-    label: "技术服务工程师",
-    checkboxDisabled: true,
-  },
-  {
-    key: 7,
-    label: "技术服务工程师",
-    checkboxDisabled: true,
-  },
-  {
-    key: 7,
-    label: "技术服务工程师",
-    checkboxDisabled: true,
-  },
-  {
-    key: 7,
-    label: "技术服务工程师",
-    checkboxDisabled: true,
-  },
-  {
-    key: 7,
-    label: "技术服务工程师",
-    checkboxDisabled: true,
-  },
-  {
-    key: 7,
-    label: "技术服务工程师",
-    checkboxDisabled: true,
-  },
-  {
-    key: 7,
-    label: "技术服务工程师",
-    checkboxDisabled: true,
-  },
-  {
-    key: 7,
-    label: "技术服务工程师",
-    checkboxDisabled: true,
-  }
 ]
 const defaultExpandedKeys = ref(['40', '41'])
 import { Fluid24Regular, Tag24Regular } from '@vicons/fluent';
-import { Number2 } from '@vicons/tabler';
+
+
+const renderLabel = ({ option }: { option: TreeOption, checked: boolean, selected: boolean }) => {
+  const label = option.label
+  const subLable = option.subLable || ''
+  if (label) {
+    return h('span', [
+      h('span', { class: 'mainLable' }, { default: () => label }),
+      h('span', { class: 'subLable' }, { default: () => subLable })
+    ])
+  }
+}
 
 const renderSuffix = ({ option }: { option: TreeOption, checked: boolean, selected: boolean }) => {
-  console.log(option);
   const suffixIcon = option.suffixIcon
   if (suffixIcon) {
     return h(NIcon, { size: '14' }, { default: () => h(suffixIcon) })
@@ -217,16 +191,17 @@ const renderSuffix = ({ option }: { option: TreeOption, checked: boolean, select
 }
 
 const renderPrefix = ({ option }: { option: TreeOption, checked: boolean, selected: boolean }) => {
-  console.log(option);
-  const type = option.type
-  if (type == 'leaf') {
-    return h(NIcon, { size: '16' }, { default: () => h(Tag24Regular) })
-  } else if (type == 'group') {
+  const children = option.children
+  if (children) {
     return h(NIcon, { size: '16' }, { default: () => h(Fluid24Regular) })
+  } else {
+    return h(NIcon, { size: '16' }, { default: () => h(Tag24Regular) })
   }
 }
 
 </script>
+
+
 
 <style lang="less">
 .rolesTrees {
@@ -255,6 +230,12 @@ const renderPrefix = ({ option }: { option: TreeOption, checked: boolean, select
       border-radius: var(--n-node-border-radius);
       transition: .2s ease all;
     }
+  }
+
+  .subLable {
+    margin-left: 10px;
+    color: #aaa;
+    font-size: 12px;
   }
 }
 </style>
