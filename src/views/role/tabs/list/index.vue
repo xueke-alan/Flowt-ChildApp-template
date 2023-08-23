@@ -23,16 +23,17 @@
       </n-layout-content>
       <n-layout-content style="flex: 1;" content-style="padding: 12px 0 0 12px;">
         <div style="display: flex;gap: 12px;height: 100%;">
-          <n-card size="small" title="功能操作权限" style="max-width: 350px;" content-style="height: 100%;overflow-y: scroll;">
-            <span>前台菜单栏页面访问控制</span>
-            <routerPermissionsTree></routerPermissionsTree>
+          <n-card size="small" title="功能操作权限" style="max-width: 350px;" content-style="height: 100%;padding-right:2px">
+            <n-scrollbar style="height: 100%;padding-right: 14px;" trigger="none">
+              <routerPermissionsTree></routerPermissionsTree>
+            </n-scrollbar>
           </n-card>
-          <n-card size="small" title="数据权限" content-style="height: 100%;padding:  0">
+          <n-card size="small" title="数据访问权限" content-style="height: 100%;padding:  0">
             <resourcePermissionsTable></resourcePermissionsTable>
           </n-card>
         </div>
       </n-layout-content>
-    </n-layout>
+    </n-layout> 
   </div>
 </template>
 
