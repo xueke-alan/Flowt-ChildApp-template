@@ -1,5 +1,6 @@
 <template >
-  <n-card class="card" content-style="display: flex;flex-direction: column;padding-top: 10px;overflow: hidden;height: 100%;"
+  <n-card class="card"
+    content-style="display: flex;flex-direction: column;padding-top: 10px;overflow: hidden;height: 100%;"
     :key="matchedRouter.name">
     <div class="header">
       <n-tabs class="tabs" type="line" :value="currentRouteName" @update:value="(name) => { router.push({ name }) }">
@@ -38,9 +39,26 @@ console.log(router);
 </script>
 
 <style lang="less" scoped>
+@keyframes fadeIn {
+  0% {
+    display: none;
+    opacity: 0;
+  }
+
+  50% {
+    display: none;
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
 .card {
   margin-bottom: 16px;
   height: 100%;
+  animation: fadeIn .6s ease-in-out forwards;
 
   .header {
     .tabs {
